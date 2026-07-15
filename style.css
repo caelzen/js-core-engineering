@@ -1,0 +1,12 @@
+body {
+	text-align: center;
+}
+
+#box {
+	width: 500px;
+	height: 500px;
+	background-color: green;
+	margin: 0 auto 25px;
+}
+
+button {margin: 0 auto; display: block;}
