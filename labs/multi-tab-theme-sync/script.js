@@ -1,13 +1,23 @@
+let body = document.querySelector('body');
 let btn = document.querySelector('#btn');
 
-document.addEventListener('keydown', (e) => {
-    let keys = [];
 
-    if (e.shiftKey) keys.push('shift');
-    if (e.ctrlKey) keys.push('ctrl');
-    if (e.altKey) keys.push('alt');
-    if (e.metaKey) keys.push('meta');
+function toggleTheme() {
+    body.classList.toggle('dark');
+    const isDark = body.classList.contains('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+}
 
-    let msg = document.querySelector('#msg');
-    msg.textContent = `Keys: ${keys.join('+')}`;
+btn.addEventListener('click', toggleTheme);
+
+window.addEventListener('storage', (e) => {
+    console.log('STORAGE');
+    if (e.key === 'theme') {
+        const newTheme = e.newValue;
+        const isCurrentlyDark = body.classList.contains('dark');
+
+        if ((newTheme == 'dark' && !isCurrentlyDark || newTheme === 'light' && isCurrentlyDark)) {
+            btn.dispatchEvent(new Event('click'));
+        }
+    }
 });
