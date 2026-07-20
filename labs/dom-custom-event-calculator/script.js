@@ -1,32 +1,31 @@
-function highlight(elem) {
-    const bgColor = 'yellow';
-    elem.style.backgroundColor = bgColor;
+const input = document.querySelector('#servings-input');
+const amount = document.querySelector('.amount');
 
-    // create the event
-    let event = new CustomEvent('mark', {
+input.addEventListener('input', () => {
+    let value = this.value;
+
+    // Save to local storage
+    localStorage.setItem('globalServings', value);
+    let updateServingsEvent = new CustomEvent('updateServings', {
         detail: {
-            backgroundColor: bgColor
-        }
+            servings: value
+        }   
     });
-    // dispatch the event
-    elem.dispatchEvent(event);
-}
-
-// Select the div element
-let div = document.querySelector('.note');
-
-// Add border style
-function addBorder(elem) {
-    elem.style.border = "solid 1px red";
-}
-
-// Listen to the highlight event
-div.addEventListener('mark', function (e) {
-    addBorder(this);
-
-    // examine the background
-    console.log(e.detail);
+    window.dispatchEvent(updateServingsEvent);
 });
 
-// highlight div element
-highlight(div);
+// Update amount
+window.addEventListener('updateServings', function (e) {
+    amount.textContent  = e.detail.servings * 100;
+});
+
+// Update other tabs value
+window.addEventListener('storage', (e) => {
+    if (e.key === 'globalServings') {
+        let updatedValue = e.newValue;
+        // console.log(updatedValue);
+
+        input.value = updatedValue;
+        amount.textContent = updatedValue * 100;
+    }
+});

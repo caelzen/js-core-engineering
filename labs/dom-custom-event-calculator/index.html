@@ -9,11 +9,14 @@
 </head>
 <body>
 
-<div class="note">JS Custom Event</div>
-<button id="btn">Click Me</button>
-
-
-<div id="msg">
+<div class="recipe-card">
+    <!-- Input to change servings -->
+    <input type="number" id="servings-input" value="2" min="1">
+    
+    <!-- An ingredient that needs to update -->
+    <p class="ingredient" data-base-amount="100">
+        Flour: <span class="amount">100</span>g
+    </p>
 </div>
 
 </body>
