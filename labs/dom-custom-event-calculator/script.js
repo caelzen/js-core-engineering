@@ -1,7 +1,7 @@
 const input = document.querySelector('#servings-input');
 const amount = document.querySelector('.amount');
 
-input.addEventListener('input', () => {
+input.addEventListener('input', function() {
     let value = this.value;
 
     // Save to local storage
